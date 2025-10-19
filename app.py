@@ -6,6 +6,7 @@ import json
 import numpy as np
 import logging
 
+logging.basicConfig(level=logging.INFO)
 app = FastAPI(
     title="Iris Classification API", 
     description="API for classifying iris flowers using ML"
@@ -44,10 +45,12 @@ def read_root():
 @app.post("/predict/", response_model=PredictionResponse)
 def predict(request: PredictionRequest):
     features = np.array(request.features).reshape(1, -1)
-    if features.shape[1] != 4:
+    if features.shape[1] = 4:
+        logging.info(f"Valid features shape: {features.shape}.")
+        prediction = model.predict(features)
+        class_name = target_names[prediction[0]]
+        logging.info(f"Prediction: {class_name}")
+        return PredictionResponse(class_name=class_name) 
+    else:
         logging.error(f"Invalid features shape: {features.shape}. Expected 4 features.")
-        raise ValueError("Invalid features shape. Expected 4 features.")
-    prediction = model.predict(features)
-    class_name = target_names[prediction[0]]
-    logging.info(f"Prediction: {class_name}")
-    return PredictionResponse(class_name=class_name) 
+        # raise ValueError("Invalid features shape. Expected 4 features.")
