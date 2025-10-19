@@ -45,7 +45,7 @@ def read_root():
 @app.post("/predict/", response_model=PredictionResponse)
 def predict(request: PredictionRequest):
     features = np.array(request.features).reshape(1, -1)
-    if features.shape[1] = 4:
+    if features.shape[1] == 4:
         logging.info(f"Valid features shape: {features.shape}.")
         prediction = model.predict(features)
         class_name = target_names[prediction[0]]
